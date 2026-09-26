@@ -2101,7 +2101,7 @@ function closeModal() {
     document.body.style.overflow = '';
 }
 
-// Open modal when buttons are clicked
+// Button click
 document.querySelectorAll('.open-modal').forEach(btn => {
     btn.addEventListener('click', () => {
         openModal(btn.dataset.title || 'Get Project Details');
@@ -2111,18 +2111,26 @@ document.querySelectorAll('.open-modal').forEach(btn => {
 // Close button
 document.querySelector('.close').addEventListener('click', closeModal);
 
-// Close when clicking outside the modal
+// Close by clicking outside
 modal.addEventListener('click', e => {
     if (e.target === modal) {
         closeModal();
     }
 });
 
-// Automatically open every 10 seconds
-setInterval(() => {
+// First popup after 10 seconds
+setTimeout(() => {
     openModal();
+
+    // Then popup every 30 seconds
+    setInterval(() => {
+        if (!modal.classList.contains('open')) {
+            openModal();
+        }
+    }, 60000);
+
 }, 10000);
- 
+
 document.querySelectorAll('.faq button').forEach(btn=>{
 btn.addEventListener('click',()=>{
 const faq=btn.closest('.faq');
